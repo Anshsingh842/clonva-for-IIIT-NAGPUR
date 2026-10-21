@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Clonva - Your Study Buddy</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#172033;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:240px;
+    height:100vh;
+    background:#172554;
+    color:white;
+    padding:25px 15px;
+    z-index:10;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.logo span{
+    color:#60a5fa;
+}
+
+.menu button{
+    width:100%;
+    padding:14px;
+    margin:6px 0;
+    border:0;
+    border-radius:12px;
+    background:transparent;
+    color:white;
+    text-align:left;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.menu button:hover,
+.menu button.active{
+    background:#2563eb;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:240px;
+    padding:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.topbar h1{
+    font-size:28px;
+}
+
+.date{
+    background:white;
+    padding:12px 18px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+
+/* SECTIONS */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:25px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:260px;
+    margin-bottom:25px;
+}
+
+.hero-text{
+    max-width:650px;
+}
+
+.hero h2{
+    font-size:34px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.6;
+}
+
+.character{
+    font-size:130px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+/* QUESTION */
+
+.question-box{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.question-box h2{
+    margin-bottom:15px;
+}
+
+.question-input{
+    display:flex;
+    gap:10px;
+}
+
+.question-input input{
+    flex:1;
+    padding:16px;
+    border:1px solid #dbe2ea;
+    border-radius:12px;
+    outline:none;
+    font-size:16px;
+}
+
+.btn{
+    border:0;
+    padding:13px 20px;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.camera-btn{
+    background:#7c3aed;
+}
+
+.answer{
+    margin-top:20px;
+    padding:18px;
+    background:#eff6ff;
+    border-radius:14px;
+    display:none;
+    line-height:1.6;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
+
+.card h3{
+    font-size:14px;
+    color:#64748b;
+    margin-bottom:10px;
+}
+
+.card .number{
+    font-size:30px;
+    font-weight:bold;
+}
+
+/* PLANNER */
+
+.form{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+
+.form input,
+.form select,
+.form textarea{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:1px solid #dbe2ea;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.form textarea{
+    min-height:130px;
+}
+
+.task{
+    background:white;
+    padding:18px;
+    border-radius:15px;
+    margin:10px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+
+.task.done{
+    opacity:.6;
+    text-decoration:line-through;
+}
+
+.delete{
+    background:#ef4444;
+    color:white;
+    border:0;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* CALENDAR */
+
+.calendar{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+}
+
+.calendar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.calendar-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+.day{
+    min-height:90px;
+    background:#f8fafc;
+    padding:10px;
+    border-radius:10px;
+}
+
+.day strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+.today{
+    background:#dbeafe;
+    border:2px solid #2563eb;
+}
+
+/* TIMER */
+
+.timer{
+    text-align:center;
+    background:white;
+    padding:45px;
+    border-radius:25px;
+}
+
+.timer-number{
+    font-size:80px;
+    font-weight:bold;
+    margin:25px;
+}
+
+.timer button{
+    margin:5px;
+}
+
+/* PROGRESS */
+
+.progress-box{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+}
+
+.progress-bar{
+    width:100%;
+    height:25px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    margin:20px 0;
+}
+
+.progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#7c3aed);
+    width:0%;
+}
+
+/* NOTES */
+
+.notes{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:70px;
+        padding:15px 8px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .menu button{
+        font-size:0;
+        text-align:center;
+    }
+
+    .menu button::first-letter{
+        font-size:20px;
+    }
+
+    .main{
+        margin-left:70px;
+        padding:15px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .character{
+        font-size:90px;
+    }
+}
+
+@media(max-width:600px){
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .question-input{
+        flex-direction:column;
+    }
+
+    .calendar-grid{
+        gap:3px;
+    }
+
+    .day{
+        min-height:60px;
+        font-size:11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        Clon<span>va</span>
+    </div>
+
+    <div class="menu">
+
+        <button onclick="showSection('home')" class="active">
+            🏠 Home
+        </button>
+
+        <button onclick="showSection('planner')">
+            📝 Study Plan
+        </button>
+
+        <button onclick="showSection('calendar')">
+            📅 Calendar
+        </button>
+
+        <button onclick="showSection('progress')">
+            📊 Progress
+        </button>
+
+        <button onclick="showSection('focus')">
+            ⏱️ Focus Mode
+        </button>
+
+        <button onclick="showSection('notes')">
+            📚 Notes
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <h1 id="pageTitle">Welcome to Clonva 👋</h1>
+
+        <div class="date" id="currentDate"></div>
+
+    </div>
+
+
+    <!-- HOME -->
+
+    <div id="home" class="section active">
+
+        <div class="hero">
+
+            <div class="hero-text">
+
+                <h2 id="motivationTitle">
+                    Hey! Ready to study?
+                </h2>
+
+                <p id="motivationText">
+                    You don't need to study everything today.
+                    Just start with one small step.
+                </p>
+
+            </div>
+
+            <div class="character">
+                🧒🏻
+            </div>
+
+        </div>
+
+
+        <!-- ASK QUESTION -->
+
+        <div class="question-box">
+
+            <h2>🤖 Ask Your Question</h2>
+
+            <p style="color:#64748b;margin-bottom:15px;">
+                Stuck on something? Ask Clonva.
+            </p>
+
+            <div class="question-input">
+
+                <input
+                    id="question"
+                    type="text"
+                    placeholder="Ask anything about your studies..."
+                >
+
+                <button class="btn" onclick="askQuestion()">
+                    Ask
+                </button>
+
+                <label class="btn camera-btn">
+
+                    📷 Camera
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        capture="environment"
+                        onchange="imageSelected(event)"
+                        hidden
+                    >
+
+                </label>
+
+            </div>
+
+            <div id="imageMessage"></div>
+
+            <div class="answer" id="answer"></div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Tasks Completed</h3>
+                <div class="number" id="completedCount">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Total Tasks</h3>
+                <div class="number" id="totalCount">0</div>
+            </div>
+
+            <div class="card">
+                <h3>Study Streak</h3>
+                <div class="number" id="streak">1 🔥</div>
+            </div>
+
+            <div class="card">
+                <h3>Progress</h3>
+                <div class="number" id="percentage">0%</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLANNER -->
+
+    <div id="planner" class="section">
+
+        <div class="form">
+
+            <h2>📝 Create Study Plan</h2>
+
+            <input
+                id="taskName"
+                placeholder="What do you want to study?"
+            >
+
+            <input
+                id="taskDate"
+                type="date"
+            >
+
+            <select id="priority">
+
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+
+            </select>
+
+            <button class="btn" onclick="addTask()">
+                + Add Task
+            </button>
+
+        </div>
+
+        <div id="taskList"></div>
+
+    </div>
+
+
+    <!-- CALENDAR -->
+
+    <div id="calendar" class="section">
+
+        <div class="calendar">
+
+            <div class="calendar-header">
+
+                <button class="btn" onclick="changeMonth(-1)">
+                    ←
+                </button>
+
+                <h2 id="monthYear"></h2>
+
+                <button class="btn" onclick="changeMonth(1)">
+                    →
+                </button>
+
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div id="progress" class="section">
+
+        <div class="progress-box">
+
+            <h2>📊 Your Study Progress</h2>
+
+            <p style="margin-top:15px;">
+                Keep going! Every completed task matters.
+            </p>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+            <h2 id="progressText">
+                0% completed
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOCUS -->
+
+    <div id="focus" class="section">
+
+        <div class="timer">
+
+            <h2>⏱️ Focus Mode</h2>
+
+            <p style="margin-top:10px;">
+                Put your phone away and focus on one thing.
+            </p>
+
+            <div class="timer-number" id="timer">
+                25:00
+            </div>
+
+            <button class="btn" onclick="startTimer()">
+                ▶ Start
+            </button>
+
+            <button class="btn" onclick="pauseTimer()">
+                ⏸ Pause
+            </button>
+
+            <button class="btn" onclick="resetTimer()">
+                🔄 Reset
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- NOTES -->
+
+    <div id="notes" class="section">
+
+        <div class="notes">
+
+            <h2>📚 My Notes</h2>
+
+            <textarea
+                id="notesText"
+                placeholder="Write your important notes here..."
+                style="
+                    width:100%;
+                    min-height:350px;
+                    margin-top:20px;
+                    padding:20px;
+                    border:1px solid #dbe2ea;
+                    border-radius:15px;
+                    font-size:16px;
+                    resize:vertical;
+                "
+            ></textarea>
+
+            <br><br>
+
+            <button class="btn" onclick="saveNotes()">
+                💾 Save Notes
+            </button>
+
+            <span id="savedMessage"
+                  style="margin-left:10px;color:#16a34a;">
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DATE
+========================= */
+
+const today = new Date();
+
+document.getElementById("currentDate").innerText =
+    today.toLocaleDateString("en-IN", {
+        day:"numeric",
+        month:"short",
+        year:"numeric"
+    });
+
+
+/* =========================
+   MOTIVATION
+========================= */
+
+const motivations = [
+
+    ["You can do this 💙",
+     "You don't have to be perfect. Just take the next step."],
+
+    ["One step at a time 🚀",
+     "Don't think about the entire syllabus. Focus on today's task."],
+
+    ["Believe in yourself 🌱",
+     "Every difficult topic becomes easier when you keep practicing."],
+
+    ["Let's study! 🔥",
+     "Even 25 minutes of focused study is better than zero."],
+
+    ["Don't give up 💪",
+     "Being confused doesn't mean you are bad at studying."],
+
+    ["Your future self will thank you ✨",
+     "The work you do today is building the person you want to become."],
+
+    ["Small progress is progress 🌟",
+     "You don't need a huge study session. Start small."]
+];
+
+let random =
+    motivations[Math.floor(Math.random()*motivations.length)];
+
+document.getElementById("motivationTitle").innerText = random[0];
+
+document.getElementById("motivationText").innerText = random[1];
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showSection(id){
+
+    document.querySelectorAll(".section")
+    .forEach(section=>{
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".menu button")
+    .forEach(button=>{
+        button.classList.remove("active");
+    });
+
+    event.currentTarget.classList.add("active");
+
+    const titles = {
+        home:"Welcome to Clonva 👋",
+        planner:"My Study Plan 📝",
+        calendar:"Study Calendar 📅",
+        progress:"Your Progress 📊",
+        focus:"Focus Mode ⏱️",
+        notes:"My Notes 📚"
+    };
+
+    document.getElementById("pageTitle").innerText =
+        titles[id];
+}
+
+
+/* =========================
+   QUESTION SYSTEM
+========================= */
+
+function askQuestion(){
+
+    const question =
+        document.getElementById("question").value.trim();
+
+    const answer =
+        document.getElementById("answer");
+
+    if(question === ""){
+
+        answer.style.display="block";
+
+        answer.innerHTML =
+        "🧒🏻 Clonva: First tell me your question. I'm listening! 😊";
+
+        return;
+    }
+
+    answer.style.display="block";
+
+    answer.innerHTML =
+    `
+    🧒🏻 <b>Clonva:</b><br><br>
+
+    Great question! You asked:<br>
+    <b>${escapeHTML(question)}</b>
+
+    <br><br>
+
+    This is currently the Clonva demo AI response.
+    In the next version, we can connect a real AI model here
+    so Clonva can actually solve your question step-by-step.
+
+    <br><br>
+
+    💡 <b>Study Tip:</b>
+    Don't just read the answer. Try explaining the concept
+    in your own words after learning it.
+    `;
+}
+
+
+/* =========================
+   IMAGE / CAMERA
+========================= */
+
+function imageSelected(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    document.getElementById("imageMessage").innerHTML =
+    `
+    <div style="
+        margin-top:15px;
+        padding:15px;
+        background:#f0fdf4;
+        border-radius:12px;
+        color:#166534;
+    ">
+        📷 Question image selected:
+        <b>${escapeHTML(file.name)}</b>
+        <br><br>
+        🧒🏻 Clonva: Image received!
+        Real image-question solving will be connected
+        when the AI backend is added.
+    </div>
+    `;
+}
+
+
+/* =========================
+   TASK SYSTEM
+========================= */
+
+let tasks =
+    JSON.parse(localStorage.getItem("clonvaTasks")) || [];
+
+function saveTasks(){
+
+    localStorage.setItem(
+        "clonvaTasks",
+        JSON.stringify(tasks)
+    );
+
+}
+
+function addTask(){
+
+    const name =
+        document.getElementById("taskName").value.trim();
+
+    const date =
+        document.getElementById("taskDate").value;
+
+    const priority =
+        document.getElementById("priority").value;
+
+    if(name === ""){
+
+        alert("Please enter a study task.");
+
+        return;
+    }
+
+    tasks.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        date:date || new Date().toISOString().split("T")[0],
+
+        priority:priority,
+
+        done:false
+
+    });
+
+    saveTasks();
+
+    document.getElementById("taskName").value="";
+
+    renderTasks();
+
+    updateStats();
+
+}
+
+function toggleTask(id){
+
+    tasks =
+        tasks.map(task=>{
+
+            if(task.id === id){
+
+                task.done = !task.done;
+
+            }
+
+            return task;
+
+        });
+
+    saveTasks();
+
+    renderTasks();
+
+    updateStats();
+
+}
+
+function deleteTask(id){
+
+    tasks =
+        tasks.filter(task=>task.id !== id);
+
+    saveTasks();
+
+    renderTasks();
+
+    updateStats();
+
+}
+
+function renderTasks(){
+
+    const list =
+        document.getElementById("taskList");
+
+    list.innerHTML="";
+
+    if(tasks.length === 0){
+
+        list.innerHTML =
+        `
+        <div class="card">
+            🧒🏻 No study tasks yet.
+            Add your first task above!
+        </div>
+        `;
+
+        return;
+    }
+
+    tasks.forEach(task=>{
+
+        const div =
+        document.createElement("div");
+
+        div.className =
+            "task " + (task.done ? "done" : "");
+
+        div.innerHTML =
+        `
+        <div>
+
+            <b>${escapeHTML(task.name)}</b>
+
+            <br>
+
+            <small>
+                📅 ${task.date}
+                &nbsp; | &nbsp;
+                Priority: ${task.priority}
+            </small>
+
+        </div>
+
+        <div>
+
+            <button
+                class="btn"
+                onclick="toggleTask(${task.id})">
+                ${task.done ? "↩ Undo" : "✓ Done"}
+            </button>
+
+            <button
+                class="delete"
+                onclick="deleteTask(${task.id})">
+                Delete
+            </button>
+
+        </div>
+        `;
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats(){
+
+    const total = tasks.length;
+
+    const completed =
+        tasks.filter(task=>task.done).length;
+
+    const percentage =
+        total === 0
+        ? 0
+        : Math.round((completed/total)*100);
+
+    document.getElementById("totalCount")
+        .innerText=total;
+
+    document.getElementById("completedCount")
+        .innerText=completed;
+
+    document.getElementById("percentage")
+        .innerText=percentage+"%";
+
+    document.getElementById("progressFill")
+        .style.width=percentage+"%";
+
+    document.getElementById("progressText")
+        .innerText=percentage+"% completed";
+
+}
+
+
+/* =========================
+   CALENDAR
+========================= */
+
+let calendarDate = new Date();
+
+function renderCalendar(){
+
+    const year =
+        calendarDate.getFullYear();
+
+    const month =
+        calendarDate.getMonth();
+
+    const monthNames = [
+        "January","February","March","April",
+        "May","June","July","August",
+        "September","October","November","December"
+    ];
+
+    document.getElementById("monthYear")
+        .innerText =
+        monthNames[month]+" "+year;
+
+    const grid =
+        document.getElementById("calendarGrid");
+
+    grid.innerHTML="";
+
+    const days =
+        ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    days.forEach(day=>{
+
+        const div=document.createElement("div");
+
+        div.innerHTML="<b>"+day+"</b>";
+
+        div.style.padding="10px";
+
+        grid.appendChild(div);
+
+    });
+
+    const firstDay =
+        new Date(year,month,1).getDay();
+
+    const totalDays =
+        new Date(year,month+1,0).getDate();
+
+    for(let i=0;i<firstDay;i++){
+
+        const empty =
+            document.createElement("div");
+
+        grid.appendChild(empty);
+
+    }
+
+    for(let day=1;day<=totalDays;day++){
+
+        const div =
+            document.createElement("div");
+
+        div.className="day";
+
+        const dateString =
+            year+"-"+
+            String(month+1).padStart(2,"0")+"-"+
+            String(day).padStart(2,"0");
+
+        const todayString =
+            new Date().toISOString().split("T")[0];
+
+        if(dateString===todayString){
+
+            div.classList.add("today");
+
+        }
+
+        const dayTasks =
+            tasks.filter(task=>task.date===dateString);
+
+        div.innerHTML =
+        `
+        <strong>${day}</strong>
+
+        ${
+            dayTasks.map(task=>
+                `<small>📝 ${escapeHTML(task.name)}</small>`
+            ).join("<br>")
+        }
+        `;
+
+        grid.appendChild(div);
+
+    }
+
+}
+
+function changeMonth(amount){
+
+    calendarDate.setMonth(
+        calendarDate.getMonth()+amount
+    );
+
+    renderCalendar();
+
+}
+
+
+/* =========================
+   FOCUS TIMER
+========================= */
+
+let timeLeft=25*60;
+
+let timerInterval=null;
+
+function updateTimer(){
+
+    const minutes =
+        Math.floor(timeLeft/60);
+
+    const seconds =
+        timeLeft%60;
+
+    document.getElementById("timer")
+        .innerText =
+        String(minutes).padStart(2,"0")
+        +":"+
+        String(seconds).padStart(2,"0");
+
+}
+
+function startTimer(){
+
+    if(timerInterval) return;
+
+    timerInterval =
+        setInterval(()=>{
+
+            if(timeLeft>0){
+
+                timeLeft--;
+
+                updateTimer();
+
+            }else{
+
+                clearInterval(timerInterval);
+
+                timerInterval=null;
+
+                alert(
+                    "🎉 Great job! Focus session completed!"
+                );
+
+            }
+
+        },1000);
+
+}
+
+function pauseTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval=null;
+
+}
+
+function resetTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval=null;
+
+    timeLeft=25*60;
+
+    updateTimer();
+
+}
+
+
+/* =========================
+   NOTES
+========================= */
+
+document.getElementById("notesText").value =
+    localStorage.getItem("clonvaNotes") || "";
+
+function saveNotes(){
+
+    localStorage.setItem(
+        "clonvaNotes",
+        document.getElementById("notesText").value
+    );
+
+    document.getElementById("savedMessage")
+        .innerText="Saved ✓";
+
+    setTimeout(()=>{
+
+        document.getElementById("savedMessage")
+            .innerText="";
+
+    },2000);
+
+}
+
+
+/* =========================
+   SECURITY HELPER
+========================= */
+
+function escapeHTML(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent=text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+renderTasks();
+
+updateStats();
+
+renderCalendar();
+
+updateTimer();
+
+</script>
+
+</body>
+</html>
